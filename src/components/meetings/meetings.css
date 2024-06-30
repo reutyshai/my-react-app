@@ -1,0 +1,9 @@
+.urgent{
+    border-color:red;
+}
+.not_urgent{
+    border-color:green;
+}
+.middle{
+    border-color:orange;
+}
