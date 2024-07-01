@@ -6,8 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 
-import './services.css'
-// import '../../index.css'
+import './Services.css'
 import AppStore from '../../store/AppStore';
 import UserMeeting from '../meetings/UserMeeting.jsx'
 import AppStoreService from "../../store/AppStoreService.js";
