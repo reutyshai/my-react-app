@@ -1,4 +1,5 @@
 import {createBrowserRouter} from 'react-router-dom'
+
 import User from './components/user/User.jsx'
 import Admin from './components/admin/AdminPage.jsx'
 import Meetings from './components/meetings/Meetings.jsx'

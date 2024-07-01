@@ -1,5 +1,7 @@
 import Services from "./Services"
-import UpdateServiceForm from "./UpdateServiceForm"
+import UpdateServiceForm from "./AddServiceForm"
+
+
 
 const AdminServices=()=>{
     return(

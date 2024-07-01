@@ -3,8 +3,6 @@ import BusinessData from "../business/BusinessData"
 import { Outlet, Link } from "react-router-dom"
 
 
-
-
 function BusinessAdmin() {
 
   return (

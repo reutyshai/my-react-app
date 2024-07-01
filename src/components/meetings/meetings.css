@@ -1,9 +1,18 @@
-.urgent{
-    border-color:red;
+.meeting{
+    margin: 1vh;
 }
-.not_urgent{
-    border-color:green;
+.meetingForm{
+    margin: 2vh;
 }
-.middle{
-    border-color:orange;
+#popupBody{
+    width: 250px;
+
+}
+#popup_form {
+    width: 220px;
+}
+#popup_form div{
+margin:4px 0 ;}
+#form_meeting_button{
+    margin: 7px
 }

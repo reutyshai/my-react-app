@@ -1,25 +1,4 @@
-#root{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
-    text-align: center;
-}
-#root>div{
-    margin:1vh auto;
-    /* padding: 1vh; */
-}
 
-.flexed-items{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 60vw;
-    margin: auto;
-
-}
-.flexed-items>div{    margin: 1vh}
 .card{
  margin: 2vh; 
     width: 308px; 
@@ -33,29 +12,4 @@
     background-color: rgb(0 0 0 / 0.5);
     -webkit-tap-highlight-color: transparent;
 }
-.btns{
-    display: flex;
 
-}
-.btn{
-    width: 80%;
-    margin: 0 20px;
-}
-.meeting{
-    margin: 1vh;
-}
-.meetingForm{
-    margin: 2vh;
-}
-#popupBody{
-    width: 250px;
-
-}
-#popup_form {
-    width: 220px;
-}
-#popup_form div{
-margin:4px 0 ;}
-#form_meeting_button{
-    margin: 7px
-}

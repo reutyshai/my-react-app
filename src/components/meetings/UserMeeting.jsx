@@ -1,120 +1,104 @@
+import { useState } from 'react';
+
 import { Unstable_Popup as BasePopup } from '@mui/base/Unstable_Popup';
 import { styled } from '@mui/system';
-
-import {  TextField } from "@mui/material";
-import MyDatePicker from '../MyDatePicker';
+import { TextField } from "@mui/material";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useState } from 'react';
+
 import AppStoreMeeting from "../../store/AppStoreMeeting";
-import '../services/Services.css'
+import './meetings.css'
 
-function UserMeeting({serviceName}) {
+function UserMeeting({ serviceName }) {
 
-    const [meetingForm, setMeetingForm] = useState({
-      nameCust: "",
-      id: "",
-      dateTime: "",
-      name:serviceName
-    })
-  
-  
-    const handleChange = (event) => {
-      const { name, value } = event.target
-      setMeetingForm({ ...meetingForm, [name]: value })
-    }
-  
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-  
-      AppStoreMeeting.addMeetings(meetingForm);
-      setAnchor(anchor ? null : event.currentTarget);
-  
-      setMeetingForm({
-        nameCust: "",
-        id: "",
-        dateTime: ""
-      })
-    }
-    const handleDateTimeChange = (dateTime) => {
-      const formattedDateTime = dateTime.format('YYYY-MM-DDTHH:mm:ss');
-      setMeetingForm((prevData) => ({
-        ...prevData,
-        dateTime: formattedDateTime,
-      }));
-      handleChange({ target: { name: 'dateTime', value: formattedDateTime } });
-    };
-  const [anchor, setAnchor] = useState(null);
+  const initForm = () => {
+    return { nameCust: "", id: "", dateTime: "", name: serviceName }
+  }
 
-  const handleClick = (event) => {
-    setAnchor(anchor ? null : event.currentTarget);
-    
+  const [meetingForm, setMeetingForm] = useState(() => initForm());
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setMeetingForm({ ...meetingForm, [name]: value })
+  }
+
+  const handleDateTimeChange = (dateTime) => {
+    const formattedDateTime = dateTime.format('YYYY-MM-DDTHH:mm:ss');
+    setMeetingForm((prevData) => ({ ...prevData, dateTime: formattedDateTime, }));
+    handleChange({ target: { name: 'dateTime', value: formattedDateTime } });
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    AppStoreMeeting.addMeetings(meetingForm);
+    setAnchor(anchor ? null : event.currentTarget);
+    setMeetingForm(initForm())
+  }
+
+  //mui תוספות של
+  const [anchor, setAnchor] = useState(null);
+  const handleClick = (event) => {
+    setAnchor(anchor ? null : event.currentTarget);
+  };
   const open = Boolean(anchor);
   const id = open ? 'simple-popup' : undefined;
+  //עד כאן
 
   return (
+
     <div>
+
       <Button aria-describedby={id} type="button" onClick={handleClick} id="form_meeting_button">
         {!open ? "Schedule a meeting" : "Close"}
       </Button>
+
       <BasePopup id={id} open={open} anchor={anchor} >
         <PopupBody id="popupBody">
-      <form id="popup_form" onSubmit={handleSubmit} className="meetingForm">
-        <TextField
-        margin="normal"
-        required
-        fullWidth
-        type='text'
-        id="custName"
-        label="Customer name"
-        name="nameCust"
-        autoComplete="nameCust"
-        onChange={handleChange}
-        value={meetingForm.nameCust}
-        autoFocus
-        className='meetingFields'
-      />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          name="id"
-          label="Id"
-          type="text"
-          id="id"
-          onChange={handleChange}
-          value={meetingForm.id}
-          className='meetingFields'
+          <form id="popup_form" onSubmit={handleSubmit} className="meetingForm">
 
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              type='text'
+              id="custName"
+              label="Customer name"
+              name="nameCust"
+              autoComplete="nameCust"
+              onChange={handleChange}
+              value={meetingForm.nameCust}
+              autoFocus
+            />
 
-          autoComplete="id"
-        />
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DateTimePicker
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="id"
+              label="Id"
+              type="text"
+              id="id"
+              onChange={handleChange}
+              value={meetingForm.id}
+              autoComplete="id"
+            />
 
-            value={meetingForm.dateTime}
-            onChange={handleDateTimeChange}
-            disablePast
-            required
-          />
-        </LocalizationProvider>
-        <Button className="btn"
-          type="submit"
-          
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Save
-        </Button>
-        </form>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateTimePicker value={meetingForm.dateTime} onChange={handleDateTimeChange} disablePast required/>
+            </LocalizationProvider>
+
+            <Button className="btn" type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+              Save
+            </Button>
+
+          </form>
         </PopupBody>
       </BasePopup>
     </div>
   );
-}export default UserMeeting
+} export default UserMeeting
+
+//mui תוספות של 
 
 const grey = {
   50: '#F3F6F9',
@@ -146,11 +130,10 @@ const PopupBody = styled('div')(
   border-radius: 8px;
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
   background-color: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
-  box-shadow: ${
-    theme.palette.mode === 'dark'
+  box-shadow: ${theme.palette.mode === 'dark'
       ? `0px 4px 8px rgb(0 0 0 / 0.7)`
       : `0px 4px 8px rgb(0 0 0 / 0.1)`
-  };
+    };
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 500;
   font-size: 0.875rem;
@@ -171,9 +154,8 @@ const Button = styled('button')(
   transition: all 150ms ease;
   cursor: pointer;
   border: 1px solid ${blue[500]};
-  box-shadow: 0 2px 4px ${
-    theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 127, 255, 0.5)'
-  }, inset 0 1.5px 1px ${blue[400]}, inset 0 -2px 1px ${blue[600]};
+  box-shadow: 0 2px 4px ${theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 127, 255, 0.5)'
+    }, inset 0 1.5px 1px ${blue[400]}, inset 0 -2px 1px ${blue[600]};
 
   &:hover {
     background-color: ${blue[600]};
